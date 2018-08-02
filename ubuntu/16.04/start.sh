@@ -70,7 +70,8 @@ if [ -z "$VSTS_AGENT_URL" -o "$VSTS_AGENT_URL" == "null" ]; then
 fi
 
 echo Downloading and installing VSTS agent...
-curl -LsS $VSTS_AGENT_URL | tar -xz --no-same-owner & wait $!
+curl -LsS $VSTS_AGENT_URL | tar -xz & wait $!
+chown -R root:root .
 
 source ./env.sh
 
