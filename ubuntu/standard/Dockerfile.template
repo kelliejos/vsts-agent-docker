@@ -9,7 +9,6 @@ RUN apt-get update \
     ftp \
     iproute2 \
     iputils-ping \
-    locales \
     openssh-client \
     sudo \
     telnet \
@@ -19,12 +18,6 @@ RUN apt-get update \
     zip \
     tzdata \
  && rm -rf /var/lib/apt/lists/*
-
-# Setup the locale
-ENV LANG en_US.UTF-8
-ENV LC_ALL $LANG
-RUN locale-gen $LANG \
- && update-locale
 
 # Install essential build tools
 RUN apt-get update \
