@@ -42,12 +42,6 @@ rm -rf /vsts/agent
 mkdir /vsts/agent
 cd /vsts/agent
 
-web-server() {
-  while true; do
-    printf 'HTTP/1.1 302 Found\r\nLocation: https://'$VSTS_ACCOUNT'.visualstudio.com/_admin/_AgentPool\r\n\r\n' | nc -l -p 80 -q 0 > /dev/null
-  done
-}
-
 cleanup() {
   if [ -e config.sh ]; then
     ./bin/Agent.Listener remove --unattended \
@@ -89,5 +83,4 @@ source ./env.sh
   --work "${VSTS_WORK:-_work}" \
   --replace & wait $!
 
-web-server &
 ./bin/Agent.Listener run & wait $!

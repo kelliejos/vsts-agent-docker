@@ -31,12 +31,6 @@ fi
 
 cd /vsts/agent
 
-web-server() {
-  while true; do
-    printf 'HTTP/1.1 302 Found\r\nLocation: $TFS_URL/_admin/_AgentPool\r\n\r\n' | nc -l -p 80 -q 0 > /dev/null
-  done
-}
-
 cleanup() {
   ./bin/Agent.Listener remove --unattended \
     --auth PAT \
@@ -67,5 +61,4 @@ source ./env.sh
   --work "${VSTS_WORK:-_work}" \
   --replace & wait $!
 
-web-server &
 ./bin/Agent.Listener run & wait $!
